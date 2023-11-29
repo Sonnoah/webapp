@@ -1,8 +1,10 @@
+<app-nav></app-nav>
+
+<div style="margin: 50px; margin-top: 10px;">
 {{title}}
 
 <ul>
     <li *ngFor="let item of users">
-        {{item.id}} {{item.userName}}
-    
+        <fa-icon [icon]="faBell"></fa-icon>{{item.id}} {{item.userName}}
     </li>
 </ul>
