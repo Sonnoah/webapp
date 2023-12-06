@@ -61,12 +61,6 @@ D:\WebApp\webapp\API\obj\Debug\net7.0\refint\API.dll
 D:\WebApp\webapp\API\obj\Debug\net7.0\API.pdb
 D:\WebApp\webapp\API\obj\Debug\net7.0\API.genruntimeconfig.cache
 D:\WebApp\webapp\API\obj\Debug\net7.0\ref\API.dll
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\angular.json
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\package-lock.json
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\package.json
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\tsconfig.app.json
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\tsconfig.json
-D:\WebApp\webapp\API\bin\Debug\net7.0\Client\tsconfig.spec.json
 D:\WebApp\WebApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
 D:\WebApp\WebApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
 D:\WebApp\WebApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
