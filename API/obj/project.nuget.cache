@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Be4ze5DFBlrtJ2X5Au6TDQRNhBT4arsG1Qd0oC66/bZ2DCFAuHrxjpRVRr+Y6ka4jieUHTfD/rcLWq7e1A4Asg==",
+  "dgSpecHash": "uqdtu1TTMCXY6D8Wpaivx6tpa9EoGAGoo9zA+TDZZNTSFtzH71x93aT41RpZwR+dud4WU7talbU6AjrrMJ0EDw==",
   "success": true,
   "projectFilePath": "D:\\WebApp\\WebApp\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -39,11 +39,7 @@
     "C:\\Users\\x7018\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.0.3\\system.identitymodel.tokens.jwt.7.0.3.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\x7018\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
-    "C:\\Users\\x7018\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
-    "C:\\Users\\x7018\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
-    "C:\\Users\\x7018\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
-    "C:\\Users\\x7018\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
+    "C:\\Users\\x7018\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
