@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "uqdtu1TTMCXY6D8Wpaivx6tpa9EoGAGoo9zA+TDZZNTSFtzH71x93aT41RpZwR+dud4WU7talbU6AjrrMJ0EDw==",
+  "dgSpecHash": "VW7ffVoNb84X7bDztmiUYTyzQ8aLGx4N0a05LJKgeHgiOLKxf84Mt5WQYb/SLKgkRq9cPgiNchcANufP2lW7CA==",
   "success": true,
   "projectFilePath": "D:\\WebApp\\WebApp\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\x7018\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\x7018\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.13\\microsoft.aspnetcore.authentication.jwtbearer.7.0.13.nupkg.sha512",
+    "C:\\Users\\x7018\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.13\\microsoft.data.sqlite.core.7.0.13.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.13\\microsoft.entityframeworkcore.7.0.13.nupkg.sha512",
     "C:\\Users\\x7018\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.13\\microsoft.entityframeworkcore.abstractions.7.0.13.nupkg.sha512",
