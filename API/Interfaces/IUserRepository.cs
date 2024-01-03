@@ -1,16 +1,18 @@
+using API;
 using API.DTOs;
 using API.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Interfaces;
 
 public interface IUserRepository
 {
-    void Update(AppUser user);
-    Task<bool> SaveAllAsync();
-    Task<AppUser?> GetUserByIdAsync(int id);
-    // Task<AppUser?> GetUserByUserNameAsync(string username);
-    // Task<IEnumerable<AppUser>> GetUsersAsync();
-    Task<IEnumerable<MemberDto>> GetMembersAsync();
-    Task<MemberDto?> GetMember_By_user_name_Async(string username);
-    Task<MemberDto?> GetMemberAsync(string username);
+  void Update(AppUser user);
+  Task<bool> SaveAllAsync();
+  Task<AppUser?> GetUserByIdAsync(int id);
+  Task<AppUser?> GetUserByUserNameAsync(string username);
+  Task<IEnumerable<MemberDto>> GetUsersAsync();
+  Task<IEnumerable<MemberDto>> GetMembersAsync();
+  Task<MemberDto> GetMemberAsync(string username);
+  // Task<MemberDto> GetMemberByUserNameAsync(string username);
 }

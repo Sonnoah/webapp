@@ -72,3 +72,5 @@ D:\WebApp\WebApp\API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdCo
 D:\WebApp\WebApp\API\bin\Debug\net7.0\Data\UserSeedData.json
 D:\WebApp\WebApp\API\bin\Debug\net7.0\AutoMapper.dll
 D:\WebApp\WebApp\API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\WebApp\WebApp\API\bin\Debug\net7.0\CloudinaryDotNet.dll
+D:\WebApp\WebApp\API\bin\Debug\net7.0\Newtonsoft.Json.dll
