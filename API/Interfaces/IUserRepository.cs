@@ -1,6 +1,7 @@
 using API;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Interfaces;
@@ -12,7 +13,9 @@ public interface IUserRepository
   Task<AppUser?> GetUserByIdAsync(int id);
   Task<AppUser?> GetUserByUserNameAsync(string username);
   Task<IEnumerable<MemberDto>> GetUsersAsync();
-  Task<IEnumerable<MemberDto>> GetMembersAsync();
+  // Task<IEnumerable<MemberDto>> GetMembersAsync();
+   Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams);
   Task<MemberDto> GetMemberAsync(string username);
+
   // Task<MemberDto> GetMemberByUserNameAsync(string username);
 }

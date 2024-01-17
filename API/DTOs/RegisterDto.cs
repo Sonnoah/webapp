@@ -15,5 +15,10 @@ public class RegisterDto
 
     public string password { get; set; }
 
+    [Required] public string Aka { get; set; }
+    [Required] public string Gender { get; set; }
+    [Required] public DateOnly BirthDate { get; set; }
+    [Required] public string City { get; set; }
+    [Required] public string Country { get; set; }
 
 }
