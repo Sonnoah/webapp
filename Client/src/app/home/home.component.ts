@@ -6,16 +6,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
   regisMode = false
-  users : any
   
   constructor(private http: HttpClient){}
+  
   ngOnInit(): void {
-    this.getUser()
+    // this.getUser()
   }
   
-
   regisToggle() {
     this.regisMode = !this.regisMode
   }
@@ -23,12 +22,12 @@ export class HomeComponent implements OnInit{
     this.regisMode = !event
   }
   
-  private getUser() {
-  this.http.get('https://localhost:7777/api/users').subscribe({
-  next: (response) => this['users'] = response,
-  error: (err) => console.log(err),
-  complete: () => console.log('request completed')
-  });
-}
+//   private getUser() {
+//   this.http.get('https://localhost:7777/api/users').subscribe({
+//   next: (response) => this['users'] = response,
+//   error: (err) => console.log(err),
+//   complete: () => console.log('request completed')
+//   });
+// }
 
 }

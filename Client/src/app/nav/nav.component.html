@@ -1,25 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#" routerLink="/" routerLinkActive="active"
-      >Tinner!</a
-    >
+    <a class="navbar-brand" href="#" >Tinner!</a>
 
     <ng-container *ngIf="accountService.currentUser$ | async">
-      <li class="nav-item">
+      <ul class="nav-item">
         <a class="nav-link" routerLink="/members" routerLinkActive="active"
           >Matched</a
         >
-      </li>
-      <li class="nav-item">
+      </ul>
+      <ul class="nav-item">
         <a class="nav-link" routerLink="/lists" routerLinkActive="active"
           >Lists</a
         >
-      </li>
-      <li class="nav-item">
+      </ul>
+      <ul class="nav-item">
         <a class="nav-link" routerLink="/messages" routerLinkActive="active"
           >Messages</a
         >
-      </li>
+      </ul>
     </ng-container>
 
     <div dropdown class="dropdown" *ngIf="currentUser$ | async">

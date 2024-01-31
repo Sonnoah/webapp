@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AccountService {
-  // baseUrl  = 'https://localhost:7777/api/'
   baseUrl = environment.apiUrl;
+  
   private currentUserSource = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -34,13 +34,14 @@ export class AccountService {
       })
     );
   }
+
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
   }
 
   setCurrentUser(user: User) {
-    localStorage.setItem('user', JSON.stringify(user)); //
+    localStorage.setItem('user', JSON.stringify(user)); 
     this.currentUserSource.next(user);
   }
 }
