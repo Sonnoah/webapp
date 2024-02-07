@@ -5,6 +5,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,20 +14,19 @@ namespace API.Controllers;
 public class AccountController : BaseApiController
 
 {
+    private readonly UserManager <AppUser> _userManager;
     private readonly IMapper _mapper;
-    private readonly DataContext _dataContext;
     private readonly ITokenService _tokenService;
 
-    public AccountController(IMapper mapper, DataContext dataContext, ITokenService tokenService)
+    public AccountController(UserManager<AppUser> userManager ,IMapper mapper, ITokenService tokenService)
     {
+        _userManager = userManager;
         _mapper = mapper;
-        _mapper = mapper;
-        _dataContext = dataContext;
         _tokenService = tokenService;
     }
     private async Task<bool> isUserExists(string username)
     {
-        return await _dataContext.Users.AnyAsync(user => user.UserName == username.ToLower());
+        return await _userManager.Users.AnyAsync(user => user.UserName == username.ToLower());
     }
 
 
@@ -37,17 +37,11 @@ public class AccountController : BaseApiController
             return BadRequest("username is already exists");
 
         var user = _mapper.Map<AppUser>(registerDto);
-        using var hmacSHA256 = new HMACSHA256();
-
-        // var user = new AppUser
-        // {
+ 
         user.UserName = registerDto.UserName!.Trim().ToLower();
-        user.PasswordHash = hmacSHA256.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password!.Trim()));
-        user.PasswordSalt = hmacSHA256.Key;
-        // };
 
-        _dataContext.Users.Add(user);
-        await _dataContext.SaveChangesAsync();
+        var appUser = await _userManager.CreateAsync(user, registerDto.password!);
+        if (!appUser.Succeeded) return BadRequest(appUser.Errors);
         return new UserDto
         {
             Username = user.UserName,
@@ -59,20 +53,14 @@ public class AccountController : BaseApiController
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await _dataContext.Users
+        var user = await _userManager.Users
                             .Include(photo => photo.Photos)
                             .SingleOrDefaultAsync(user =>
-                            user.UserName == loginDto.Username);
+                            user.UserName == loginDto.Username.ToLower());
 
         if (user is null) return Unauthorized("invalid username");
-
-        using var hmacSHA256 = new HMACSHA256(user.PasswordSalt!);
-
-        var computedHash = hmacSHA256.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password!.Trim()));
-        for (int i = 0; i < computedHash.Length; i++)
-        {
-            if (computedHash[i] != user.PasswordHash?[i]) return Unauthorized("invalid password");
-        }
+        var appUser = await _userManager.CheckPasswordAsync(user, loginDto.Password!); 
+        if (!appUser) return BadRequest("invalid password");
 
         return new UserDto
         {

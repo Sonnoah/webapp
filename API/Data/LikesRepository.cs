@@ -50,6 +50,7 @@ public class LikesRepository : IlikesRepository
             Country = user.Country,
             Age = user.BirthDate.CalculateAge(),
             MainPhotoUrl = user.Photos.FirstOrDefault(photo => photo.IsMain).Url,
+            Photos = user.Photos.ToList(),
             Id = user.Id
         });//.ToListAsync();
         return await PageList<LikeDto>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);

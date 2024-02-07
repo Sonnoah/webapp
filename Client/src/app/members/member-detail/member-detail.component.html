@@ -1,4 +1,4 @@
-<div class="row" *ngIf="member">
+<div class="row">
     <div class="col-4">
         <div class="card">
             <img class="card-img-top img-thumbnail" 
@@ -25,13 +25,13 @@
             <div class="card-footer">
                 <div class="btn-group d-flex">
                     <button class="btn btn-primary">Like</button>
-                    <button class="btn btn-success">Message</button>
+                    <button (click)="selectTab('Messages')" class="btn btn-success">Message</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-8">
-        <tabset class="member-tabset">
+        <tabset class="member-tabset" #memberTabs>
             <tab heading="About">
                 <h5>Description</h5>
                 <p>{{member.introduction}}</p>
@@ -46,9 +46,8 @@
                 <gallery class="gallery" *ngIf="photoTab.active" [items]="photos"></gallery>
             </tab>
             <tab heading="Messages">
-                <h5>Messages</h5>
-                <p>messages....</p>
+                <app-member-messages [username]="member.userName" [messages]="messages"></app-member-messages>
             </tab>
         </tabset>
     </div>
-</div>
+<!-- </div> -->
