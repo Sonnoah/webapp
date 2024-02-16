@@ -1,17 +1,17 @@
-﻿using API.Data;
+﻿using API.Controllers;
+using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
+namespace API.ClassLibrary1;
 
 #nullable disable
 public class ErrorController : BaseApiController
 {
     private readonly DataContext _dataContext;
-    
-    public ErrorController (DataContext dataContext)
-    
+
+    public ErrorController(DataContext dataContext)
     {
         _dataContext = dataContext;
     }
@@ -31,21 +31,22 @@ public class ErrorController : BaseApiController
         return user;
     }
 
-    [HttpGet("server-error")]
+     [HttpGet("server-error")]
     public ActionResult<string> GetServerError()
-     {
-        {
-            var user = _dataContext.Users.Find(100000);
-            var stringUser = user.ToString();
-            return stringUser;
-        }
+    {
         
+        {
+        var user = _dataContext.Users.Find(100000);
+        var stringUser = user.ToString();//can not turn null to string = no reference exception
+        return stringUser;
+        }
+      
     }
-   
-    [HttpGet("bad-request")]
+
+     [HttpGet("bad-request")]
     public ActionResult<string> GetBadRequest()
     {
         return BadRequest("illegal request");
     }
-
 }
+

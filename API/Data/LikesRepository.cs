@@ -1,5 +1,6 @@
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ public class LikesRepository : IlikesRepository
     {
         _dataContext = dataContext;
     }
+
     public async Task<AppUser> GetUser(int userId)
     {
         return await _dataContext.Users.Include(user => user.LikedUsers)
@@ -42,17 +44,17 @@ public class LikesRepository : IlikesRepository
             users = likes.Select(like => like.SourceUser!);
         }
 
-        var likedUsers = users.Select(user => new LikeDto
+         var likedUsers= users.Select(user => new LikeDto
         {
             UserName = user.UserName,
             Aka = user.Aka,
             City = user.City,
             Country = user.Country,
             Age = user.BirthDate.CalculateAge(),
-            MainPhotoUrl = user.Photos.FirstOrDefault(photo => photo.IsMain).Url,
             Photos = user.Photos.ToList(),
+            MainPhotoUrl = user.Photos.FirstOrDefault(photo => photo.IsMain).Url,
             Id = user.Id
-        });//.ToListAsync();
-        return await PageList<LikeDto>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);
+        });
+         return await PageList<LikeDto>.CreateAsync(likedUsers, likesParams.PageNumber, likesParams.PageSize);
     }
-    }
+}

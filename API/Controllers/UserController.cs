@@ -36,17 +36,18 @@ public class UsersController : BaseApiController
     }
 
     // [AllowAnonymous]
+    //[Authorize(Roles = "Administrator")]
+
     [HttpGet]
-      public async Task<ActionResult<PageList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
+
+    public async Task<ActionResult<PageList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         var username = User.GetUsername();
         if (username is null) return NotFound();
-
         var currentUser = await _userRepository.GetUserByUserNameAsync(username);
         if (currentUser is null) return NotFound();
 
         userParams.CurrentUserName = currentUser.UserName;
-
         if (string.IsNullOrEmpty(userParams.Gender))
         {
             if (currentUser.Gender != "non-binary")
@@ -69,6 +70,7 @@ public class UsersController : BaseApiController
         return _mapper.Map<MemberDto>(user);
     }
 
+    [Authorize(Roles = "Administrator,Moderator,Member")]
     [HttpGet("username/{username}")]
     public async Task<ActionResult<MemberDto?>> GetUserByUserName(string username) => await _userRepository.GetMemberAsync(username);
 
@@ -107,10 +109,11 @@ public class UsersController : BaseApiController
         user.Photos.Add(photo);
         if (await _userRepository.SaveAllAsync())
             return CreatedAtAction( //status 201
-                    nameof(GetUserByUserName),
-                    new { username = user.UserName },
-                    _mapper.Map<PhotoDto>(photo)
-                );
+                   nameof(GetUserByUserName),
+                   new { username = user.UserName },
+                   _mapper.Map<PhotoDto>(photo)
+               );
+
         return BadRequest("Something has gone wrong!");
     }
 
@@ -143,7 +146,7 @@ public class UsersController : BaseApiController
         var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
         if (photo is null) return NotFound();
 
-        if (photo.IsMain) return BadRequest("can't delete main photo");
+                if (photo.IsMain) return BadRequest("can't delete main photo");
 
         if (photo.PublicId is not null)
         {
@@ -155,7 +158,6 @@ public class UsersController : BaseApiController
         if (await _userRepository.SaveAllAsync()) return NoContent();
 
         return BadRequest("Something has gone wrong!");
+
     }
-
-
 }

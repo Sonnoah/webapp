@@ -1,13 +1,12 @@
+using API.Controllers;
 using API.DTOs;
-using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers;
-
+namespace API.Controller;
 public class MessagesController : BaseApiController
 {
     private readonly IUserRepository _userRepository;
@@ -22,7 +21,32 @@ public class MessagesController : BaseApiController
         _mapper = mapper;
     }
 
-    [HttpGet("thread/{recipientUserName}")]
+    [HttpPost]
+    public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
+    {
+        if (createMessageDto.RecipientUsername is null) return NotFound();
+        var username = User.GetUsername();
+        if (username is null) return NotFound();
+        if (username == createMessageDto?.RecipientUsername?.ToLower()) return BadRequest("can't send to yourself!");
+
+        var sender = await _userRepository.GetUserByUserNameAsync(username);
+        var recipient = await _userRepository.GetUserByUserNameAsync(createMessageDto!.RecipientUsername);
+        if (recipient is null || sender is null) return NotFound();
+        var message = new Message
+        {
+            Sender = sender,
+            Recipient = recipient,
+            Content = createMessageDto.Content,
+            SenderUsername = sender.UserName,
+            RecipientUsername = recipient.UserName,
+        };
+
+        _messageRepository.AddMessage(message);
+        if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
+        return BadRequest("Something has gone wrong!");
+    }
+
+      [HttpGet("thread/{recipientUserName}")]
   public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string recipientUserName)
   {
       var senderUserName = User.GetUsername();
@@ -32,30 +56,7 @@ public class MessagesController : BaseApiController
       return Ok(messages);
   }
 
-    [HttpPost]
-public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto){
-  if (createMessageDto.RecipientUsername is null) return NotFound();
-  var username = User.GetUsername();
-  if (username is null) return NotFound();
-  if (username == createMessageDto?.RecipientUsername?.ToLower()) return BadRequest("can't send to yourself!");
-
-  var sender = await _userRepository.GetUserByUserNameAsync(username);
-  var recipient = await _userRepository.GetUserByUserNameAsync(createMessageDto!.RecipientUsername);
-  if (recipient is null || sender is null) return NotFound();
-  var message = new Message
-  {
-      Sender = sender,
-      Recipient = recipient,
-      Content = createMessageDto.Content,
-      SenderUsername = sender.UserName,
-      RecipientUsername = recipient.UserName,
-  };
-
-  _messageRepository.AddMessage(message);
-  if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
-  return BadRequest("Something has gone wrong!");
-}
-  [HttpGet]
+      [HttpGet]
   public async Task<ActionResult<PageList<MessageDto>>> GetUserMessages([FromQuery] MessageParams messageParams)
   {
     messageParams.Username = User.GetUsername();
@@ -73,7 +74,7 @@ public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto creat
     return messages;
   }
 
-      [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteMessage(int id)
     {
         var username = User.GetUsername();
@@ -95,5 +96,4 @@ public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto creat
         if (await _messageRepository.SaveAllAsync()) return Ok();
         return BadRequest("can't delete this message!");
     }
-
 }

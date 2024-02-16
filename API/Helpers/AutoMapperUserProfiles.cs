@@ -1,16 +1,15 @@
-using API.DTOs;
+﻿using API.DTOs;
 using API.Entities;
 using API.Extensions;
 using AutoMapper;
 
-#nullable disable
-
 namespace API.Helpers;
-
+#nullable disable
 public class AutoMapperUserProfiles : Profile
 {
     public AutoMapperUserProfiles()
     {
+
         CreateMap<Message, MessageDto>()
             .ForMember(
                 msdto => msdto.SenderPhotoUrl,
@@ -24,25 +23,22 @@ public class AutoMapperUserProfiles : Profile
                         ms => ms.Recipient.Photos.FirstOrDefault(photo => photo.IsMain).Url
                     )
             );
-            
-         CreateMap<AppUser, MemberDto>()
-            .ForMember(
-                user => user.Age,
-                opt => opt.MapFrom(
-                     user => user.BirthDate.CalculateAge() 
-                )
-            )
-               .ForMember( 
-                user => user.MainPhotoUrl,
-                opt => opt.MapFrom(
-                    user => user.Photos.FirstOrDefault(p => p.IsMain == true).Url
 
-                )
-            
-            );
+        CreateMap<AppUser, MemberDto>()
+        .ForMember(
+            User => User.Age,
+            opt => opt.MapFrom(
+            UserDTo => UserDTo.BirthDate.CalculateAge()
+            )
+        )
+        .ForMember(
+            user => user.MainPhotoUrl,
+            opt => opt.MapFrom(
+                user => user.Photos.FirstOrDefault(p => p.IsMain == true).Url
+            )
+        );
         CreateMap<Photo, PhotoDto>();
         CreateMap<MemberUpdateDto, AppUser>();
         CreateMap<RegisterDto, AppUser>();
     }
-
 }

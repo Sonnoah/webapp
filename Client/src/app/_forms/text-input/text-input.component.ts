@@ -6,12 +6,12 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
   templateUrl: './text-input.component.html',
   styleUrls: ['./text-input.component.css']
 })
-export class TextInputComponent  implements ControlValueAccessor {
+export class TextInputComponent implements ControlValueAccessor {
 
   @Input() label = ''
   @Input() placeholder = ''
   @Input() type = 'text'
- 
+
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this
   }
@@ -24,7 +24,6 @@ export class TextInputComponent  implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     // throw new Error('Method not implemented.');
   }
-
+  
   get control(): FormControl { return this.ngControl.control as FormControl }
-
 }

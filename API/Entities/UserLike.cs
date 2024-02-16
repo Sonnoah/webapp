@@ -1,4 +1,6 @@
-namespace API.Entities;
+using API.Entities;
+
+namespace API.Extensions;
 
 public class UserLike
 {

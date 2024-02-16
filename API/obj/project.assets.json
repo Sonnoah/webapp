@@ -4910,6 +4910,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Sqlite >= 7.0.13",
+      "Microsoft.IdentityModel.Tokens >= 7.0.3",
       "System.IdentityModel.Tokens.Jwt >= 7.0.3"
     ]
   },
@@ -4975,6 +4976,10 @@
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[7.0.13, )"
+          },
+          "Microsoft.IdentityModel.Tokens": {
+            "target": "Package",
+            "version": "[7.0.3, )"
           },
           "System.IdentityModel.Tokens.Jwt": {
             "target": "Package",

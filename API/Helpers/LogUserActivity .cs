@@ -1,4 +1,3 @@
-using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -8,7 +7,7 @@ public class LogUserActivity : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var resultContext = await next(); //รอให้ next ทำงานเสร็จก่อน
+        var resultContext = await next(); 
         var user = resultContext.HttpContext.User;
         if (user is null) return;
         if (user.Identity is not null && !user.Identity.IsAuthenticated) return;
@@ -21,6 +20,6 @@ public class LogUserActivity : IAsyncActionFilter
         if (userRepository is null) return;
 
         userRepository.LastActive = DateTime.UtcNow;
-        await repository.SaveAllAsync();
+        await repository.SaveAllAsync();    
     }
 }

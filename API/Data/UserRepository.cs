@@ -1,4 +1,4 @@
-﻿using API;
+using API;
 using API.Data;
 using API.DTOs;
 using API.Entities;
@@ -22,28 +22,26 @@ public class UserRepository : IUserRepository
 
   public async Task<PageList<MemberDto>> GetMembersAsync(UserParams userParams)
   {
-        var minBirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1)); 
-        var maxBirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
-        
-        var query = _dataContext.Users.AsQueryable();
-            query = userParams.OrderBy switch
-        {
-            "created" => query.OrderByDescending(user => user.Created),
-            _ => query.OrderByDescending(user => user.LastActive),
-        };
+    var minBirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MaxAge - 1));
+    var maxBirthDate = DateOnly.FromDateTime(DateTime.Today.AddYears(-userParams.MinAge));
 
-        query = query.Where(user => user.BirthDate >= minBirthDate && user.BirthDate <= maxBirthDate);
-        
-        query = query.Where(user => user.UserName != userParams.CurrentUserName);
-        if (userParams.Gender != "non-binary")
-            query = query.Where(user => user.Gender == userParams.Gender);
-        query.AsNoTracking();
+    var query = _dataContext.Users.AsQueryable();
+    query = userParams.OrderBy switch
+    {
+      "created" => query.OrderByDescending(user => user.Created),
+      _ => query.OrderByDescending(user => user.LastActive),
+    };
+    query = query.Where(user => user.BirthDate >= minBirthDate && user.BirthDate <= maxBirthDate);
 
-            return await PageList<MemberDto>.CreateAsync(
-            query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider), 
-            userParams.PageNumber, 
-            userParams.PageSize);
-    }
+    query = query.Where(user => user.UserName != userParams.CurrentUserName);
+    if (userParams.Gender != "non-binary")
+      query = query.Where(user => user.Gender == userParams.Gender);
+    query.AsNoTracking();
+
+
+    return await PageList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.ConfigurationProvider),
+    userParams.PageNumber, userParams.PageSize);
+  }
 
 
   public async Task<MemberDto> GetUserByIdAsync(int id)
@@ -69,8 +67,8 @@ public class UserRepository : IUserRepository
         .ToListAsync();
   }
 
-    
-public async Task<bool> SaveAllAsync() => await _dataContext.SaveChangesAsync() > 0;
+
+  public async Task<bool> SaveAllAsync() => await _dataContext.SaveChangesAsync() > 0;
 
   public async Task<MemberDto> GetMemberAsync(string username)
   {
@@ -79,7 +77,8 @@ public async Task<bool> SaveAllAsync() => await _dataContext.SaveChangesAsync() 
         .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
         .SingleOrDefaultAsync();
   }
-  public async Task<AppUser> GetMemberByUserNameAsync(string username){
+  public async Task<AppUser> GetMemberByUserNameAsync(string username)
+  {
     return await _dataContext.Users
     .Include(user => user.Photos)
     .SingleOrDefaultAsync(item => item.UserName == username);
@@ -87,22 +86,22 @@ public async Task<bool> SaveAllAsync() => await _dataContext.SaveChangesAsync() 
 
   public void Update(AppUser user) => _dataContext.Entry(user).State = EntityState.Modified;
 
-    async Task<AppUser> IUserRepository.GetUserByIdAsync(int id)
-    {
-        return await _dataContext.Users.FindAsync(id);
-    }
+  async Task<AppUser> IUserRepository.GetUserByIdAsync(int id)
+  {
+    return await _dataContext.Users.FindAsync(id);
+  }
 
-    async Task<AppUser> IUserRepository.GetUserByUserNameAsync(string username)
-    {
-        return await _dataContext.Users
-        .Include(user => user.Photos)
-        .SingleOrDefaultAsync(user => user.UserName == username);
-    }
+  async Task<AppUser> IUserRepository.GetUserByUserNameAsync(string username)
+  {
+    return await _dataContext.Users
+     .Include(user => user.Photos)
+    .SingleOrDefaultAsync(user => user.UserName == username);
+  }
 
-    public async Task<AppUser> GetUserByUserNameWithOutPhotoAsync(string username)
-    {
-         return await _dataContext.Users
-        // .Include(user => user.Photos)
-        .SingleOrDefaultAsync(user => user.UserName == username);
-    }
+  public async Task<AppUser> GetUserByUserNameWithOutPhotoAsync(string username)
+  {
+    return await _dataContext.Users
+           // .Include(user => user.Photos)
+           .SingleOrDefaultAsync(user => user.UserName == username);
+  }
 }

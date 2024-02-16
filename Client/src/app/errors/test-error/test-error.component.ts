@@ -7,18 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./test-error.component.css']
 })
 export class TestErrorComponent {
+[x: string]: any;
+
+
   baseUrl = 'https://localhost:7777/api/'
-  validationErrors: string[] = []
 
   constructor(private http: HttpClient) { }
 
   private _get(path: string) {
     this.http.get(this.baseUrl + path).subscribe({
-      next: resp => console.log(resp),
-      error: err => {
-        console.log(err)
-        this.validationErrors = err 
-      }
+      next: (resp: any) => console.log(resp),
+      error: (err: any) => console.log(err)
     })
   }
 
@@ -36,8 +35,11 @@ export class TestErrorComponent {
   }
   getValidationError() {
     this.http.post(this.baseUrl + 'account/register', {}).subscribe({
-      next: resp => console.log(resp),
-      error: err => console.log(err)
+      next: (resp: any) => console.log(resp),
+      error: (err: any) => {
+      console.log(err)
+      this['ValidationError'] = err
+    }
     })
   }
 }

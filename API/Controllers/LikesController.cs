@@ -1,8 +1,5 @@
-
-
 using API.Controllers;
 using API.DTOs;
-using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
@@ -12,7 +9,7 @@ namespace API.Controller;
 
 public class LikesController : BaseApiController
 {
-    private readonly IUserRepository _userRepository;
+     private readonly IUserRepository _userRepository;
     private readonly IlikesRepository _likeRepository;
 
     public LikesController(IUserRepository userRepository, IlikesRepository likeRepository)
@@ -53,20 +50,22 @@ public class LikesController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<PageList<LikeDto>>> GetUserLikes([FromQuery] LikesParams likesParams)
     {
-        var _user_id = User.GetUserId();
-        if (_user_id is null) return NotFound();
-        likesParams.UserId = (int)_user_id;
+        var string_user_id = User.GetUserId();
+        if (string_user_id is null) return NotFound();
+
+        likesParams.UserId = (int)string_user_id;
 
         var users = await _likeRepository.GetUserLikes(likesParams);
 
         var paginationHeader = new PaginationHeader(
-            users.CurrentPage,
-            users.PageSize,
-            users.TotalCount,
+            users.CurrentPage, 
+            users.PageSize, 
+            users.TotalCount, 
             users.TotalPages);
         Response.AddPaginationHeader(paginationHeader);
 
         return Ok(users);
     }
 
+    
 }

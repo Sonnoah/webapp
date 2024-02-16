@@ -19,11 +19,11 @@
                 </div>
                 <div>
                     <strong>Last active:</strong>
-                    <p>{{member.lastActive + 'z'| timeago}}</p>
+                    <p>{{member.lastActive +'z' | timeago}}</p>
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created | date :'dd MMM yyyy'}}</p>
+                    <p>{{member.created | date: 'ddd MMM yyy'}}</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -63,7 +63,6 @@
                 </form>
             </tab>
             <tab heading="Edit Photos">
-                <!-- <p> under construct !! </p> -->
                 <app-photo-editor [member]="member"></app-photo-editor>
             </tab>
         </tabset>

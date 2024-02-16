@@ -17,23 +17,22 @@ import { MessageService } from 'src/app/_services/message.service';
   standalone: true,
   imports: [CommonModule, TabsModule, GalleryModule, TimeagoModule, MemberMessagesComponent]
 })
-
 export class MemberDetailComponent implements OnInit {
-
-  @ViewChild('memberTabs', { static : true }) memberTabs?: TabsetComponent
   member: Member = {} as Member
-  photos : GalleryItem[] = []
+  
+  photos: GalleryItem[] = []
 
+  @ViewChild('memberTabs') memberTabs?: TabsetComponent
   activeTab?: TabDirective
   messages: Message[] = []
+  
+  constructor(private messageService: MessageService, private memberService: MembersService, private route: ActivatedRoute) { }
 
-  constructor(private messageService: MessageService, private memberService: MembersService, private route: ActivatedRoute) {}
-
-  ngOnInit(): void { 
-
+  ngOnInit(): void { //
+    // this.loadMember()//<--ไม่ใช้แล้ว เพราะ ได้ member จาก resolver
     this.route.data.subscribe({
         next: data => {
-            this.member = data['member']
+            this.member = data['member'] //เพราะเราตั้งชื่อ member ใน app-routing.module.ts
             this.getImages()
         }
     })
@@ -42,20 +41,23 @@ export class MemberDetailComponent implements OnInit {
     })
 }
 
-  
-getImages() {
-  if (!this.member) return
-  for (const photo of this.member.photos) {
+  getImages() {
+    if (!this.member) return
+    for (const photo of this.member.photos) {
       this.photos.push(new ImageItem({ src: photo.url, thumb: photo.url }))
-  }
-}
-
-  onTabActivated(tab: TabDirective) { 
-    this.activeTab = tab
-    if (this.activeTab.heading === 'Messages') {
-      this.loadMessages()
     }
   }
+
+  // loadMember() {
+  //   const username = this.route.snapshot.paramMap.get('username')
+  //   if (!username) return
+  //   this.memberService.getMember(username).subscribe({
+  //     next: user => {
+  //       this.member = user
+  //       this.getImages()
+  //     }
+  //   })
+  // }
 
   loadMessages() { 
     if (!this.member) return
@@ -64,17 +66,12 @@ getImages() {
     })
   }
 
-
-  // loadMember () {
-  //     const username = this.route.snapshot.paramMap.get('username')
-  //     if (!username) return
-  //     this.memberService.getMember(username).subscribe({
-  //         next: user => {
-  //           this.member = user
-  //           this.getImages()
-  //         }
-  //     })
-  // }
+  onTabActivated(tab: TabDirective) { 
+    this.activeTab = tab
+    if (this.activeTab.heading === 'Messages') {
+      this.loadMessages()
+    }
+  }
 
   selectTab(tabHeading: string) {
     if (!this.memberTabs) return
@@ -83,4 +80,3 @@ getImages() {
     tab.active = true
   }
 }
-

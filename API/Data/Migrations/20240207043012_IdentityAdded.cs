@@ -28,8 +28,8 @@ namespace API.Data.Migrations
                 table: "Messages");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Photo_Users_AppUserID",
-                table: "Photo");
+                name: "FK_Photos_Users_AppUserID",
+                table: "Photos");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Users",
@@ -328,8 +328,8 @@ namespace API.Data.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Photo_AspNetUsers_AppUserID",
-                table: "Photo",
+                name: "FK_Photos_AspNetUsers_AppUserID",
+                table: "Photos",
                 column: "AppUserID",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
@@ -356,8 +356,8 @@ namespace API.Data.Migrations
                 table: "Messages");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Photo_AspNetUsers_AppUserID",
-                table: "Photo");
+                name: "FK_Photos_AspNetUsers_AppUserID",
+                table: "Photos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -494,8 +494,8 @@ namespace API.Data.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Photo_Users_AppUserID",
-                table: "Photo",
+                name: "FK_Photos_Users_AppUserID",
+                table: "Photos",
                 column: "AppUserID",
                 principalTable: "Users",
                 principalColumn: "Id",

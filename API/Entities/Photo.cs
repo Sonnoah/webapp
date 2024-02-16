@@ -1,9 +1,9 @@
-namespace API.Entities;
-
+namespace API.Extensions;
 using System.ComponentModel.DataAnnotations.Schema;
-[Table("Photo")]
-
+using API.Entities;
+[Table("Photos")]
 #nullable disable
+
 public class Photo
 {
     public int AppUserID { get; set; }

@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from "@angular/common/http"
-import { PaginationResult } from "../_models/pagination"
+import { PaginationResult } from "../_models/Pagination"
 import { map } from "rxjs"
 
 export function getPaginationResult<T>(url: string, params: HttpParams, http: HttpClient) {

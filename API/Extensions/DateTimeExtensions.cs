@@ -1,6 +1,7 @@
-namespace API.Entities;
-public static class DateTimeExtensions 
-{   
+namespace API.Extensions;
+
+public static class DateTimeExtensions
+{
     public static int CalculateAge(this DateOnly birthdate) 
     {
         var today = DateOnly.FromDateTime(DateTime.UtcNow);

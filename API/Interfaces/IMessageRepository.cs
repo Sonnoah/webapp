@@ -1,9 +1,8 @@
 using API.DTOs;
-using API.Entities;
+using API.Extensions;
 using API.Helpers;
 
 namespace API.Interfaces;
-
 public interface IMessageRepository
 {
     void AddMessage(Message message);

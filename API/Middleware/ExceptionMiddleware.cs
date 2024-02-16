@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using API.Errors;
+using API.Extensions;
 
 namespace API.Middleware;
 
@@ -17,7 +18,7 @@ public class ExceptionMiddleware
         _requestDelegate = requestDelegate;
     }
 
-      public async Task InvokeAsync(HttpContext httpContext)
+    public async Task InvokeAsync(HttpContext httpContext)
     {
         try
         {

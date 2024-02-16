@@ -1,10 +1,10 @@
+namespace API.Extensions;
+
 using Microsoft.AspNetCore.Identity;
-
-namespace API.Entities;
-
 #nullable disable
 
 public class AppRole : IdentityRole<int>
 {
-    public ICollection<AppUserRole> UserRoles { get; set; }    
+    public ICollection<AppUserRole> UserRoles { get; set; }
+
 }

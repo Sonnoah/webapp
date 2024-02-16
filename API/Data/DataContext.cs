@@ -1,4 +1,5 @@
 ﻿using API.Entities;
+using API.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Data;
 
 public class DataContext : IdentityDbContext
-
 <
     AppUser, 
     AppRole, 
@@ -25,19 +25,17 @@ public class DataContext : IdentityDbContext
 
     }
 
-    // public DbSet<AppUser> Users { get; set; }
-    public DbSet<UserLike> Likes { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-         modelBuilder.Entity<AppUser>()
+        modelBuilder.Entity<AppUser>()
             .HasMany(appUser => appUser.UserRoles)
             .WithOne(appUserRole => appUserRole.User)
             .HasForeignKey(appUserRole => appUserRole.UserId)
             .IsRequired();
 
-            modelBuilder.Entity<AppRole>()
+        modelBuilder.Entity<AppRole>()
             .HasMany(appRole => appRole.UserRoles)
             .WithOne(appUserRole => appUserRole.Role)
             .HasForeignKey(appUserRole => appUserRole.RoleId)
@@ -56,7 +54,7 @@ public class DataContext : IdentityDbContext
             .WithMany(appuser => appuser.LikedByUsers)
             .HasForeignKey(userlike => userlike.LikedUserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         modelBuilder.Entity<Message>()
             .HasOne(message => message.Recipient)
             .WithMany(appuser => appuser.MessagesReceived)
@@ -66,5 +64,8 @@ public class DataContext : IdentityDbContext
             .HasOne(message => message.Sender)
             .WithMany(appuser => appuser.MessagesSent)
             .OnDelete(DeleteBehavior.Restrict);
-    } 
+    }
+
+    // public DbSet<AppUser> Users { get; set; }
+    public DbSet<UserLike> Likes { get; set; } 
 }

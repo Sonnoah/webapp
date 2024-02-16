@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -10,17 +10,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit{
-  
-  maxDate: Date = new Date()
+  maxDate: Date = new Date() //
   registerForm: FormGroup = new FormGroup({})
   validationErrors: string[] | undefined
-  @Output() isCancel = new EventEmitter()  
-  
-  constructor(private formBuilder: FormBuilder ,private toastr: ToastrService, private router: Router, private accountService : AccountService){}
-  ngOnInit(): void {
-    this.initForm()
-    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18)
-  }
+
+
+  @Input() usersFromHomeCpmponent: any
+  @Output() isCancel = new EventEmitter()
   model: any = {}
 
   private dateOnly(date_string: string | undefined) {
@@ -29,8 +25,6 @@ export class RegisterComponent implements OnInit{
     return new Date(date.setMinutes(date.getMinutes() - date.getTimezoneOffset()))
       .toISOString().slice(0, 10)
   }
-
-
 
   initForm() {
     this.registerForm = this.formBuilder.group({
@@ -47,7 +41,6 @@ export class RegisterComponent implements OnInit{
       next: _ => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
     })
   }
-  
 
   matchValue(matchTo: string): ValidatorFn {
     return (ctrl: AbstractControl) =>
@@ -56,12 +49,19 @@ export class RegisterComponent implements OnInit{
         : { notMatching: true }
   }
 
+  constructor(private router: Router,private formBuilder: FormBuilder,private toastr: ToastrService, private accountService: AccountService) { }
+
+  ngOnInit(): void {
+    this.initForm()
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18)
+  }
+
   register() {
-    const birthDate = this.dateOnly(this.registerForm.controls['birthDate'].value)
-    const registerData = { ...this.registerForm.value, birthDate }
     // this.accountService.register(this.model).subscribe({ ... })
+      const birthDate = this.dateOnly(this.registerForm.controls['birthDate'].value)
+    const registerData = { ...this.registerForm.value, birthDate }
     this.accountService.register(registerData).subscribe({
-      next: _ => {
+      next: response => {
         this.router.navigateByUrl('/members')
       },
       error: err => {
@@ -69,8 +69,17 @@ export class RegisterComponent implements OnInit{
       }
     })
   }
-
-  cancel() {
-    this.isCancel.emit(true)
+  
+    // this.accountService.register(this.model).subscribe({
+    //   next: response => {
+    //     this.cancel()
+    //   },
+    //   error: err => this.toastr.error(err)
+    // })
+    cancel() {
+      this.isCancel.emit(true)
+    }
   }
-}
+
+
+

@@ -8,6 +8,7 @@ export class UserParams {
     pageSize = 5
     orderBy = 'lastActive'
 
+
     constructor(user: User) {
         if (user.gender === 'non-binary')
             this.gender = 'non-binary'

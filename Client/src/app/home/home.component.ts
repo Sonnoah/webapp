@@ -6,28 +6,29 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   regisMode = false
-  
-  constructor(private http: HttpClient){}
-  
+
+  constructor(private http: HttpClient) { }
   ngOnInit(): void {
     // this.getUser()
   }
-  
+
   regisToggle() {
     this.regisMode = !this.regisMode
   }
-  cancelRegister(event : boolean){
+
+
+  // private getUser() {
+  //   this.http.get('https://localhost:7777/api/users').subscribe({
+  //     next: (response) => this['user'] = response,
+  //     error: (err) => console.log(err),
+  //     complete: () => console.log('request completed')
+  //   });
+  // }
+
+  cancelRegister(event: boolean) {
     this.regisMode = !event
   }
-  
-//   private getUser() {
-//   this.http.get('https://localhost:7777/api/users').subscribe({
-//   next: (response) => this['users'] = response,
-//   error: (err) => console.log(err),
-//   complete: () => console.log('request completed')
-//   });
-// }
-
 }
+

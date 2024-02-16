@@ -9,7 +9,6 @@ public class PaginationHeader
         TotalItems = totalItems;
         TotalPages = totalPages;
     }
-
     public int CurrentPage { get; set; }
     public int ItemsPerpage { get; set; }
     public int TotalItems { get; set; }

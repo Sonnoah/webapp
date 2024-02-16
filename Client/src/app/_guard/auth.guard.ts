@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 export const authGuard: CanActivateFn = (route, state) => {
   const accountService = inject(AccountService)
   const toastrService = inject(ToastrService)
-  
+
   return accountService.currentUser$.pipe(
     map(user => {
       if (user) return true
@@ -15,4 +15,4 @@ export const authGuard: CanActivateFn = (route, state) => {
       return false
     })
   )
-};
+}

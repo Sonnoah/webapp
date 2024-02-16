@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using API.Entities;
-
-namespace API.Entities;
-
+using Microsoft.AspNetCore.Identity;
 #nullable disable
+namespace API.Extensions;
+
 public class AppUserRole : IdentityUserRole<int>
 {
     public AppUser User { get; set; }

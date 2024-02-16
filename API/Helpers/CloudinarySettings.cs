@@ -1,4 +1,4 @@
-﻿namespace API.Helpers;
+﻿namespace Company.ClassLibrary1;
 
 public class CloudinarySettings
 {

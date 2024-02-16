@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240131025856_MessageEntityAdded")]
+    [Migration("20240131025847_MessageEntityAdded")]
     partial class MessageEntityAdded
     {
         /// <inheritdoc />
@@ -70,7 +70,7 @@ namespace API.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("API.Entities.Message", b =>
+            modelBuilder.Entity("API.Extensions.Message", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace API.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("API.Entities.Photo", b =>
+            modelBuilder.Entity("API.Extensions.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,10 +134,10 @@ namespace API.Data.Migrations
 
                     b.HasIndex("AppUserID");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("API.Entities.UserLike", b =>
+            modelBuilder.Entity("API.Extensions.UserLike", b =>
                 {
                     b.Property<int>("SourceUserId")
                         .HasColumnType("INTEGER");
@@ -152,7 +152,7 @@ namespace API.Data.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("API.Entities.Message", b =>
+            modelBuilder.Entity("API.Extensions.Message", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "Recipient")
                         .WithMany("MessagesReceived")
@@ -171,7 +171,7 @@ namespace API.Data.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("API.Entities.Photo", b =>
+            modelBuilder.Entity("API.Extensions.Photo", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
                         .WithMany("Photos")
@@ -182,7 +182,7 @@ namespace API.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("API.Entities.UserLike", b =>
+            modelBuilder.Entity("API.Extensions.UserLike", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "LikedUser")
                         .WithMany("LikedByUsers")
