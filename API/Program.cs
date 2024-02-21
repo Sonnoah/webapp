@@ -23,9 +23,9 @@ app.UseCors(builder => builder
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
 
 using var scope = app.Services.CreateScope();
 var service = scope.ServiceProvider;
@@ -36,6 +36,8 @@ try
     var roleManager = service.GetRequiredService<RoleManager<AppRole>>(); //<--
     await dataContext.Database.MigrateAsync();
     await Seed.SeedUsers(userManager, roleManager); //<--
+
+     await dataContext.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
 }
 catch (System.Exception e)
 {

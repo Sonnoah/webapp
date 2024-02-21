@@ -307,3 +307,5 @@ D:\WebApp\WebApp\API\obj\Debug\net7.0\refint\API.dll
 D:\WebApp\WebApp\API\obj\Debug\net7.0\API.pdb
 D:\WebApp\WebApp\API\obj\Debug\net7.0\API.genruntimeconfig.cache
 D:\WebApp\WebApp\API\obj\Debug\net7.0\ref\API.dll
+D:\WebApp\WebApp\API\bin\Debug\net7.0\Npgsql.dll
+D:\WebApp\WebApp\API\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
